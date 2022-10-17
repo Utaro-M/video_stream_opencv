@@ -197,6 +197,10 @@ virtual void do_publish(const ros::TimerEvent& event) {
           cv::flip(frame, frame, 1);
         else if (latest_config.flip_vertical)
           cv::flip(frame, frame, 0);
+        if (latest_config.rotate_90_clockwise)
+          cv::rotate(frame, frame, cv::ROTATE_90_CLOCKWISE);
+        if (latest_config.rotate_90_counterclockwise)
+          cv::rotate(frame, frame, cv::ROTATE_90_COUNTERCLOCKWISE);
         cv_bridge::CvImagePtr cv_image =
           boost::make_shared<cv_bridge::CvImage>(header, "bgr8", frame);
         if (latest_config.output_encoding != "bgr8")
